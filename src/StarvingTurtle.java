@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -14,10 +15,12 @@ import org.teachingextensions.logo.Colors;
 import org.teachingextensions.logo.Paintable;
 import org.teachingextensions.logo.PenColors;
 import org.teachingextensions.logo.Tortoise;
+import org.teachingextensions.logo.Turtle.Animals;
 
 public class StarvingTurtle implements KeyEventDispatcher {
 
 	// 1. Set a location for the cookie
+	
 	int cookieX= (int)(Math.random()*100);
 	int cookieY=(int)(Math.random()*100);
 	ArrayList<Point> previousLocations = new ArrayList<Point>();
@@ -30,10 +33,12 @@ public class StarvingTurtle implements KeyEventDispatcher {
 	
 	void setup() {
 		// 3. Edit this intro message to your own style
-		JOptionPane.showMessageDialog(null, "Move the turtle with the arrow keys to find the hidden cookie.\nWhen you get close, the color will be yellow!\n\nHurry cause the turtle is hungry!!");
+		Tortoise.setAnimal(Animals.Spider);
+		JOptionPane.showMessageDialog(null, "Move the spider with the arrow keys to find the hidden cookie.\nWhen you get close, the color will be yellow!\n\nHurry cause the turtle is hungry!!");
 		
 		// 4. For debugging purposes, show the cookie. The user won’t see this.
-		showCookie();
+
+		
 	}
 
 	private void goUp() {
@@ -48,6 +53,7 @@ public class StarvingTurtle implements KeyEventDispatcher {
 		// 5. make the tortoise move left at the specified speed (3 lines of code)
 		Tortoise.turn(-90);
 		Tortoise.move(speed);
+		Tortoise.turn(-270);
 		
 	}
 
@@ -55,6 +61,7 @@ public class StarvingTurtle implements KeyEventDispatcher {
 		// 6. use the speed variable to make the tortoise move right
 		Tortoise.turn(90);
 		Tortoise.move(speed);
+		Tortoise.turn(270);
 	}
 
 	private void checkForFood() throws Exception {
@@ -87,6 +94,7 @@ public class StarvingTurtle implements KeyEventDispatcher {
 		{
 			setBackgroundColor(Colors.getRandomColor());
 			JOptionPane.showMessageDialog(null, "YOU FOUND THE COOKIE YAY");
+			Tortoise.explode();
 		}
 				
 		// 11. If more than 20 seconds have elapsed, tell them the turtle died of hunger!
@@ -94,6 +102,7 @@ public class StarvingTurtle implements KeyEventDispatcher {
 		{
 			setBackgroundColor(Colors.Grays.Black);
 			JOptionPane.showMessageDialog(null, "Game Over....you died");
+			Tortoise.explode();
 			
 		}
 
@@ -103,7 +112,6 @@ public class StarvingTurtle implements KeyEventDispatcher {
 			JOptionPane.showMessageDialog(null, "You've already been here! Try again!");
 			Point p = getFirstLocation();
 			Tortoise.clear();
-			showCookie();
 			clearPosition();
 			Tortoise.setX((int)p.getX());
 			Tortoise.setY((int)p.getY());
@@ -153,8 +161,8 @@ public class StarvingTurtle implements KeyEventDispatcher {
 	private void controlTheTortoise() {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
 		Tortoise.show();
-		Tortoise.setPenColor(PenColors.Purples.DarkMagenta);
-		Tortoise.getBackgroundWindow().setBackground(PenColors.Blues.CadetBlue);
+		Tortoise.setPenColor(PenColors.getRandomColor());
+		Tortoise.getBackgroundWindow().setBackground(PenColors.getRandomColor());
 		Tortoise.setSpeed(10);
 	}
 
