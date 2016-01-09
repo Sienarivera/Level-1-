@@ -1,3 +1,4 @@
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -14,10 +15,10 @@ import org.teachingextensions.logo.Colors;
 
 public class TrickOrTreat implements ActionListener
 {
-	public static void main()
+	public static void main(String[] args)
 	{
 		TrickOrTreat trick = new TrickOrTreat();
-		
+		trick.createUI();
 		
 	}
 	
@@ -26,29 +27,49 @@ public class TrickOrTreat implements ActionListener
 	JButton treat = new JButton();
 	JButton trick = new JButton();
 	
-	public void actionPerformed(ActionEvent e)
-	{
-		
-		
-	}
+
 	
 	public void createUI()
 	{
+	
 		frame.add(panel);
+		frame.setSize(500, 500);
 		panel.add(treat);
 		panel.add(trick);
 		
-		frame.setForeground(Colors.Oranges.DarkOrange);
+		frame.setBackground(Colors.Oranges.DarkOrange);
 		frame.setTitle("Trick or treat!");
-		panel.setForeground(Colors.Yellows.Gold);
-		treat.setBackground(Colors.Grays.Black);
-		trick.setBackground(Colors.Reds.OrangeRed);
+		
+		panel.setBackground(Colors.Yellows.Gold);
+		treat.setSize(100,200);
+		trick.setSize(100,200);
+		
+		treat.setForeground(Colors.Grays.Black);
+		treat.setBackground(Colors.Grays.Gray);
+		trick.setForeground(Colors.Reds.OrangeRed);
 		treat.setText("TREAT");
 		trick.setText("TRICK");
 		
 		trick.addActionListener(this);
 		treat.addActionListener(this);
+		frame.setVisible(true);
+		panel.setVisible(true);
 		
+	}
+	
+	public void actionPerformed(ActionEvent arg0)
+	{
+		JButton newButton = (JButton)arg0.getSource();
+		if(trick==newButton)
+		{
+			showPictureFromTheInternet("http://boomansion.net/media/artwork/mpa/boo.jpg");
+			
+		}
+		else if(treat==newButton)
+		{
+			showPictureFromTheInternet("https://s-media-cache-ak0.pinimg.com/736x/fc/54/f0/fc54f08977d4d52801958db7c54d7a55.jpg");
+			
+		}
 	}
 	
 	private void showPictureFromTheInternet(String imageUrl) {
