@@ -7,32 +7,39 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import org.teachingextensions.logo.Colors;
 
 public class JPanelWindows extends JPanel implements ActionListener
 {
 	Timer t;
-	BufferedImage image;
-	GameObject object;
+	BufferedImage image, imageE;
+	GameObject player, enemy;
+	
 	
 	public JPanelWindows()
-	{
-		t = new Timer(1000/60, this);
-		t.start();
+	{	
+		System.out.println("Blah");
 		try
 		{
 			image = ImageIO.read(this.getClass().getResourceAsStream("t.png"));
+			imageE = ImageIO.read(this.getClass().getResourceAsStream("Sans.png"));
 		}
 		catch(Exception e)
 		{
 			System.out.println("IT DIDNT WORK");
 		}
-		object = new GameObject(100,100,275, 285,image);
+		player = new Player(100,100,150,150,image);
+		enemy = new Enemy(300,200,150,150, imageE);
+
+		t = new Timer(1000/60, this);
+		t.start();
+		
+		
 	}
 	
-	public void paint(Graphics g)
+	public void paintComponent(Graphics g)
 	{
-		object.paint(g);
+		player.paint(g);
+		enemy.paint(g);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e)
